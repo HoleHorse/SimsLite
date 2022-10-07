@@ -124,7 +124,7 @@ public class Main {
 	}
 	
 	public static Food chooseFood(Scanner input) {
-		System.out.println("Choose toppings for your dish: 1 = Mashed potato, 2 = FoodStuff.Pasta, 3 = FoodStuff.Sausage, 4 = FoodStuff.Pattie, 5 = FoodStuff.Rice, 6 = End");
+		System.out.println("Choose toppings for your dish: 1 = Mashed potato, 2 = FoodStuff.Pasta, 3 = FoodStuff.Sausage, 4 = FoodStuff.Pattie, 5 = FoodStuff.Rice, Any other key = End");
 		String topping = input.nextLine();
 		return switch (topping) {
 			case "1" -> new MashedPotato(chooseFood(input));
