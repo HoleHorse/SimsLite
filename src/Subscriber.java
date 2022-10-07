@@ -1,3 +1,5 @@
+import WorkStuff.WorkBehaviour;
+
 import java.util.ArrayList;
 
 public class Subscriber implements Observer {

@@ -1,3 +1,5 @@
+import WorkStuff.WorkBehaviour;
+
 import java.util.HashSet;
 import java.util.Set;
 
