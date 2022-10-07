@@ -1,4 +1,6 @@
 import FoodStuff.*;
+import ObserverStuff.InstaAcc;
+import ObserverStuff.Subscriber;
 import WorkStuff.*;
 
 import java.util.Objects;
