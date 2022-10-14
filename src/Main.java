@@ -107,7 +107,7 @@ public class Main {
 						case "4" -> {
 							Food food = chooseFood(input);
 							System.out.println(food.getFoodName());
-							System.out.println("Price" + food.getFoodPrice());
+							System.out.println("Price: " + food.getFoodPrice());
 							if (shkipC.getSavings() < food.getFoodPrice()) {
 								System.out.println("You don't have enough money");
 							} else {
