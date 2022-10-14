@@ -70,7 +70,7 @@ public class Main {
 						case "8" -> {
 							Food food = chooseFood(input);
 							System.out.println(food.getFoodName());
-							System.out.println("Price" + food.getFoodPrice());
+							System.out.println("Price: " + food.getFoodPrice());
 							if (currCharSub.getSavings() < food.getFoodPrice()) {
 								System.out.println("You don't have enough money");
 							} else {
