@@ -1,8 +1,8 @@
 import FactoryStuff.DrinkFact;
 import FactoryStuff.DrinkFactory;
 import FoodStuff.*;
-import ObserverStuff.InstaAcc;
-import ObserverStuff.Subscriber;
+import ObservSinglStuff.InstaAcc;
+import ObservSinglStuff.Subscriber;
 import WorkStuff.*;
 
 import java.util.Objects;
@@ -12,8 +12,7 @@ public class Main {
 	static Subscriber champ = new Subscriber("Champ123", new WorkAsNot());
 	static Subscriber vik = new Subscriber("Viktor228", new WorkAsLawyer());
 	static Subscriber smash = new Subscriber("Smasher520", new WorkAsBuilder());
-	static InstaAcc shkipC = new InstaAcc("Captain_SHkiper", new WorkAsNot());
-			
+	static InstaAcc shkipC = InstaAcc.getInstance();
 	static String currCharType = "";
 	static Subscriber currCharSub = new Subscriber("Default", new WorkAsNot());
 			

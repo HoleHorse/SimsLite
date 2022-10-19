@@ -1,5 +1,6 @@
-package ObserverStuff;
+package ObservSinglStuff;
 
+import WorkStuff.WorkAsNot;
 import WorkStuff.WorkBehaviour;
 
 import java.util.HashSet;
@@ -9,9 +10,10 @@ public class InstaAcc implements InstaSevice {
 	private Set<Observer> subscribers = new HashSet<>();
 	private String alias;
 	private WorkBehaviour workBehaviour;
+	private static InstaAcc instance = new InstaAcc("Captain_SHkiper", new WorkAsNot());
 	private int savings;
 	
-	public InstaAcc(String alias, WorkBehaviour workBehaviour) {
+	private InstaAcc(String alias, WorkBehaviour workBehaviour) {
 		this.alias = alias;
 		this.workBehaviour = workBehaviour;
 		this.savings = 100000;
@@ -52,5 +54,9 @@ public class InstaAcc implements InstaSevice {
 	
 	public void setSavings(int savings) {
 		this.savings = savings;
+	}
+
+	public static InstaAcc getInstance() {
+		return instance;
 	}
 }

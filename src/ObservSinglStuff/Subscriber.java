@@ -1,7 +1,5 @@
-package ObserverStuff;
+package ObservSinglStuff;
 
-import ObserverStuff.InstaAcc;
-import ObserverStuff.Observer;
 import WorkStuff.WorkBehaviour;
 
 import java.util.ArrayList;

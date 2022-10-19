@@ -1,4 +1,4 @@
-package ObserverStuff;
+package ObservSinglStuff;
 
 public interface InstaSevice {
 	public void subscribe(Observer o);
