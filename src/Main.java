@@ -1,3 +1,5 @@
+import FactoryStuff.DrinkFact;
+import FactoryStuff.DrinkFactory;
 import FoodStuff.*;
 import ObserverStuff.InstaAcc;
 import ObserverStuff.Subscriber;
@@ -46,7 +48,7 @@ public class Main {
 				boolean wantSwitch = false;
 				while(!wantSwitch) {
 					System.out.println("Enter number of the action to perform:");
-					System.out.println("1 = Read new, 2 = Read old, 3 = Switch, 4 = Sub., 5 = Unsub., 6 = Exit, 7 = Work, 8 = Eat, 9 = See savings");
+					System.out.println("1 = Read new, 2 = Read old, 3 = Switch, 4 = Sub., 5 = Unsub., 6 = Exit, 7 = Work, 8 = Eat, 9 = See savings, 10 = get drink");
 					String action = input.nextLine();
 					switch (action) {
 						case "1" -> {
@@ -80,6 +82,10 @@ public class Main {
 							}
 						}
 						case "9" -> System.out.println(currCharSub.getSavings());
+						case "10" -> {
+							DrinkFact drink = chooseDrink(input);
+							drink.getDrink();
+						}
 						default -> System.out.println("I can't " + action);
 					}
 				}
@@ -87,7 +93,7 @@ public class Main {
 				boolean wantSwitch = false;
 				while(!wantSwitch) {
 					System.out.println("Enter number of the action to perform:");
-					System.out.println("1 = Post, 2 = Details, 3 = Switch, 4 = Eat, 5 = Unsub., 6 = Exit, 7 = Work, 8 = See savings");
+					System.out.println("1 = Post, 2 = Details, 3 = Switch, 4 = Eat, 5 = Unsub., 6 = Exit, 7 = Work, 8 = See savings, 9 = get drink");
 					String action = input.nextLine();
 					switch (action) {
 						case "1" -> {
@@ -116,6 +122,10 @@ public class Main {
 							}
 						}
 						case "8" -> System.out.println(shkipC.getSavings());
+						case "9" -> {
+							DrinkFact drink = chooseDrink(input);
+							drink.getDrink();
+						}
 						default -> System.out.println("I can't " + action);
 					}
 				}
@@ -134,6 +144,26 @@ public class Main {
 			case "5" -> new Rice(chooseFood(input));
 			default -> new Dish();
 		};
+	}
+
+	public static DrinkFact chooseDrink(Scanner input) {
+		DrinkFactory drinkFactory = new DrinkFactory();
+		while(true) {
+			System.out.println("Choose your poison: 1 = Coffee, 2 = Tea, 3 = Booze");
+			String drink = input.nextLine();
+			switch (drink) {
+				case "1" -> {
+					return drinkFactory.getDrink("Coffee");
+				}
+				case "2" -> {
+					return drinkFactory.getDrink("Tea");
+				}
+				case "3" -> {
+					return drinkFactory.getDrink("Booze");
+				}
+				default -> System.out.println("No such drink");
+			};
+		}
 	}
 	
 	public static String insertCharName(Scanner input) {
