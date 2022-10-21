@@ -5,6 +5,7 @@ import ObservSinglStuff.InstaAcc;
 import ObservSinglStuff.Subscriber;
 import WorkStuff.*;
 
+import java.sql.Connection;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -17,6 +18,8 @@ public class Main {
 	static Subscriber currCharSub = new Subscriber("Default", new WorkAsNot());
 			
 	static Scanner input = new Scanner(System.in);
+
+	static Connection con = DBcon.getCon();
 	
 	public static void main(String[] args) {
 		champ.subscribe(shkipC);
