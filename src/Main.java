@@ -5,7 +5,6 @@ import ObservSinglStuff.InstaAcc;
 import ObservSinglStuff.Subscriber;
 import WorkStuff.*;
 
-import java.sql.Connection;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -16,10 +15,7 @@ public class Main {
 	static InstaAcc shkipC = InstaAcc.getInstance();
 	static String currCharType = "";
 	static Subscriber currCharSub = new Subscriber("Default", new WorkAsNot());
-			
 	static Scanner input = new Scanner(System.in);
-
-	static Connection con = DBcon.getCon();
 	
 	public static void main(String[] args) {
 		champ.subscribe(shkipC);
@@ -63,7 +59,9 @@ public class Main {
 							currCharSub.readOldNotifications();
 							makeSame(currCharSub);
 						}
-						case "6" -> exitGame();
+						case "6" -> {
+							return;
+						}
 						case "3" -> wantSwitch = true;
 						case "4" -> sub(currCharName);
 						case "5" -> unsub(currCharName);
@@ -108,7 +106,9 @@ public class Main {
 							String name = input.nextLine();
 							shkipC.unsubscribe(getSub(name));
 						}
-						case "6" -> exitGame();
+						case "6" -> {
+							return;
+						}
 						case "3" -> wantSwitch = true;
 						case "2" -> shkipC.seeAccDetails();
 						case "7" -> shkipC.work();
@@ -164,7 +164,7 @@ public class Main {
 					return drinkFactory.getDrink("Booze");
 				}
 				default -> System.out.println("No such drink");
-			};
+			}
 		}
 	}
 	

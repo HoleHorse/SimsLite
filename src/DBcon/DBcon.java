@@ -1,3 +1,5 @@
+package DBcon;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -8,7 +10,7 @@ public class DBcon {
         try {
             // Establish connection
             Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "Post123gre");
+            con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/sdp", "postgres", "Post123gre");
             con.close();
         } catch (Exception e) {
             System.out.println(e);
