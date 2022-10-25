@@ -2,7 +2,7 @@ package FactoryStuff;
 
 public class Tea implements DrinkFact {
     @Override
-    public void getDrink() {
-        System.out.println("You ordered Tea");
+    public String getDrink() {
+        return "You ordered Tea";
     }
 }

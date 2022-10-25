@@ -5,8 +5,12 @@ import WorkStuff.WorkBehaviour;
 public class WorkAsBuilder implements WorkBehaviour {
 
 	@Override
-	public int work() {
-		System.out.println("I am building things");
+	public String work() {
+		return "I am building things";
+	}
+
+	@Override
+	public int getPaid() {
 		return 10000;
 	}
 

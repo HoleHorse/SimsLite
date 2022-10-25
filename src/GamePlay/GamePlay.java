@@ -1,5 +1,6 @@
 package GamePlay;
 
+import Frames.GameWindow;
 import FactoryStuff.DrinkFact;
 import FactoryStuff.DrinkFactory;
 import FoodStuff.*;
@@ -9,7 +10,6 @@ import WorkStuff.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class GamePlay {
     static Subscriber champ = new Subscriber("Champ123", new WorkAsNot());
@@ -18,16 +18,16 @@ public class GamePlay {
     static InstaAcc mainChar = InstaAcc.getInstance();
     static String currCharType = "";
     static Subscriber currCharSub = new Subscriber("Default", new WorkAsNot());
-    static Scanner input = new Scanner(System.in);
-    static ArrayList<Subscriber> sublist = new ArrayList<>();
 
     public static void play() {
-        startGame(input);
+        GameWindow.createWindow();
+        startGame();
         champ.subscribe(mainChar);
         vik.subscribe(mainChar);
         smash.subscribe(mainChar);
+        GameWindow.createWindow();
         while(true) {
-            String currCharName = insertCharName(input);
+            String currCharName = insertCharName();
             switch (currCharName) {
                 case "Champ123" -> {
                     currCharSub = champ;
@@ -41,23 +41,30 @@ public class GamePlay {
                     currCharSub = smash;
                     currCharType = "sub";
                 }
-                case "Captain_SHkiper" -> currCharType = "acc";
             }
+            if(currCharName.equals(mainChar.getAlias()))
+                currCharType = "acc";
             if(Objects.equals(currCharType, "sub")) {
                 boolean wantSwitch = false;
                 while(!wantSwitch) {
-                    System.out.println("Enter number of the action to perform:");
-                    System.out.println("1 = Read new, 2 = Read old, 3 = Switch, 4 = Sub., 5 = Unsub., 6 = Exit, 7 = Work, 8 = Eat, 9 = See savings, 10 = get drink");
-                    String action = input.nextLine();
+                    GameWindow.appendText("Enter number of the action to perform:\n");
+                    GameWindow.appendText("1 = Read new, 2 = Read old, 3 = Switch, 4 = Sub., 5 = Unsub., 6 = Exit, 7 = Work, 8 = Eat, 9 = See savings, 10 = get drink\n");
+                    String action = GameWindow.getText();
                     switch (action) {
                         case "1" -> {
-                            System.out.println("New posts:");
-                            currCharSub.readNewNotifications();
+                            GameWindow.appendText("New posts:\n");
+                            ArrayList<String> list = currCharSub.readNewNotifications();
+                            for (String i : list) {
+                                GameWindow.appendText(i + "\n");
+                            }
                             makeSame(currCharSub);
                         }
                         case "2" -> {
-                            System.out.println("Old posts:");
-                            currCharSub.readOldNotifications();
+                            GameWindow.appendText("Old posts:\n");
+                            ArrayList<String> list = currCharSub.readOldNotifications();
+                            for (String i : list) {
+                                GameWindow.appendText(i + "\n");
+                            }
                             makeSame(currCharSub);
                         }
                         case "6" -> {
@@ -67,93 +74,93 @@ public class GamePlay {
                         case "4" -> sub(currCharName);
                         case "5" -> unsub(currCharName);
                         case "7" -> {
-                            currCharSub.work();
+                            GameWindow.appendText(currCharSub.work() + "\n");
                             makeSame(currCharSub);
                         }
                         case "8" -> {
-                            Food food = chooseFood(input);
-                            System.out.println(food.getFoodName());
-                            System.out.println("Price: " + food.getFoodPrice());
+                            Food food = chooseFood();
+                            GameWindow.appendText(food.getFoodName() + "\n");
+                            GameWindow.appendText("Price: " + food.getFoodPrice() + "\n");
                             if (currCharSub.getSavings() < food.getFoodPrice()) {
-                                System.out.println("You don't have enough money");
+                                GameWindow.appendText("You don't have enough money\n");
                             } else {
                                 currCharSub.setSavings(currCharSub.getSavings() - food.getFoodPrice());
-                                System.out.println("Savings: " + currCharSub.getSavings());
+                                GameWindow.appendText("Savings: " + currCharSub.getSavings() + "\n");
                                 makeSame(currCharSub);
                             }
                         }
-                        case "9" -> System.out.println(currCharSub.getSavings());
+                        case "9" -> GameWindow.appendText(currCharSub.getSavings() + "\n");
                         case "10" -> {
-                            DrinkFact drink = chooseDrink(input);
-                            drink.getDrink();
+                            DrinkFact drink = chooseDrink();
+                            GameWindow.appendText(drink.getDrink() + "\n");
                         }
-                        default -> System.out.println("I can't " + action);
+                        default -> GameWindow.appendText("I can't " + action + "\n");
                     }
                 }
             } else if(Objects.equals(currCharType, "acc")) {
                 boolean wantSwitch = false;
                 while(!wantSwitch) {
-                    System.out.println("Enter number of the action to perform:");
-                    System.out.println("1 = Post, 2 = Details, 3 = Switch, 4 = Eat, 5 = Unsub., 6 = Exit, 7 = Work, 8 = See savings, 9 = get drink");
-                    String action = input.nextLine();
+                    GameWindow.appendText("Enter number of the action to perform:\n");
+                    GameWindow.appendText("1 = Post, 2 = Details, 3 = Switch, 4 = Eat, 5 = Unsub., 6 = Exit, 7 = Work, 8 = See savings, 9 = get drink\n");
+                    String action = GameWindow.getText();
                     switch (action) {
                         case "1" -> {
-                            System.out.println("Enter your message");
-                            String msg = input.nextLine();
+                            GameWindow.appendText("Enter your message\n");
+                            String msg = GameWindow.getText();
                             mainChar.notify(msg);
                         }
                         case "5" -> {
-                            System.out.println("Enter who to unsub.");
-                            String name = input.nextLine();
+                            GameWindow.appendText("Enter who to unsub.\n");
+                            String name = GameWindow.getText();
                             mainChar.unsubscribe(getSub(name));
                         }
                         case "6" -> {
                             return;
                         }
                         case "3" -> wantSwitch = true;
-                        case "2" -> mainChar.seeAccDetails();
-                        case "7" -> mainChar.work();
+                        case "2" -> GameWindow.appendText(mainChar.seeAccDetails() + "\n");
+                        case "7" -> GameWindow.appendText(mainChar.work() + "\n");
                         case "4" -> {
-                            Food food = chooseFood(input);
-                            System.out.println(food.getFoodName());
-                            System.out.println("Price: " + food.getFoodPrice());
+                            Food food = chooseFood();
+                            GameWindow.appendText(food.getFoodName() + "\n");
+                            GameWindow.appendText("Price: " + food.getFoodPrice() + "\n");
                             if (mainChar.getSavings() < food.getFoodPrice()) {
-                                System.out.println("You don't have enough money");
+                                GameWindow.appendText("You don't have enough money\n");
                             } else {
                                 mainChar.setSavings(mainChar.getSavings() - food.getFoodPrice());
-                                System.out.println("Savings: " + mainChar.getSavings());
+                                GameWindow.appendText("Savings: " + mainChar.getSavings() + "\n");
                             }
                         }
-                        case "8" -> System.out.println(mainChar.getSavings());
+                        case "8" -> GameWindow.appendText(mainChar.getSavings() + "\n");
                         case "9" -> {
-                            DrinkFact drink = chooseDrink(input);
-                            drink.getDrink();
+                            DrinkFact drink = chooseDrink();
+                            GameWindow.appendText(drink.getDrink() + "\n");
                         }
-                        default -> System.out.println("I can't " + action);
+                        default -> GameWindow.appendText("I can't " + action + "\n");
                     }
                 }
             }
         }
     }
 
-    public static Food chooseFood(Scanner input) {
-        System.out.println("Choose toppings for your dish: 1 = Mashed potato, 2 = Pasta, 3 = Sausage, 4 = Pattie, 5 = Rice, Any other key = End");
-        String topping = input.nextLine();
+    public static Food chooseFood() {
+        GameWindow.appendText("Choose toppings for your dish: 1 = Mashed potato, 2 = Pasta, 3 = Sausage, 4 = Pattie, 5 = Rice, Any other key = End\n");
+        String topping = GameWindow.getText();;
         return switch (topping) {
-            case "1" -> new MashedPotato(chooseFood(input));
-            case "2" -> new Pasta(chooseFood(input));
-            case "3" -> new Sausage(chooseFood(input));
-            case "4" -> new Pattie(chooseFood(input));
-            case "5" -> new Rice(chooseFood(input));
+            case "1" -> new MashedPotato(chooseFood());
+            case "2" -> new Pasta(chooseFood());
+            case "3" -> new Sausage(chooseFood());
+            case "4" -> new Pattie(chooseFood());
+            case "5" -> new Rice(chooseFood());
             default -> new Dish();
         };
     }
 
-    public static DrinkFact chooseDrink(Scanner input) {
+    public static DrinkFact chooseDrink() {
         DrinkFactory drinkFactory = new DrinkFactory();
         while(true) {
-            System.out.println("Choose your poison: 1 = Coffee, 2 = Tea, 3 = Booze");
-            String drink = input.nextLine();
+            GameWindow.appendText("Choose your poison: 1 = Coffee, 2 = Tea, 3 = Booze\n");
+            String drink = GameWindow.getText();
             switch (drink) {
                 case "1" -> {
                     return drinkFactory.getDrink("Coffee");
@@ -164,18 +171,18 @@ public class GamePlay {
                 case "3" -> {
                     return drinkFactory.getDrink("Booze");
                 }
-                default -> System.out.println("No such drink");
+                default -> GameWindow.appendText("No such drink\n");
             }
         }
     }
 
-    public static String insertCharName(Scanner input) {
+    public static String insertCharName() {
         boolean isChar = false;
         String charName = null;
         while(!isChar) {
-            System.out.println("Choose character (Enter '1 = Champ123', '2 = Viktor228', '3 = Smasher520' or '4 = Captain_SHkiper')");
-            System.out.println("Enter 'exit' to end the game");
-            charName = input.nextLine();
+            GameWindow.appendText("Choose character (Enter '1 = Champ123', '2 = Viktor228', '3 = Smasher520' or '4 = " + mainChar.getAlias() + "')" + "\n");
+            GameWindow.appendText("Enter 'exit' to end the game\n");
+            charName = GameWindow.getText();
             if(charName.equals("exit")) {
                 exitGame();
             }
@@ -193,12 +200,12 @@ public class GamePlay {
                     isChar = true;
                 }
                 case "4" -> {
-                    charName = "Captain_SHkiper";
+                    charName = mainChar.getAlias();
                     isChar = true;
                 }
             }
             if(!isChar) {
-                System.out.println("No such charachter, try again");
+                GameWindow.appendText("No such charachter, try again\n");
             }
         }
         return charName;
@@ -249,9 +256,9 @@ public class GamePlay {
         }
     }
 
-    public static void startGame(Scanner input) {
-        System.out.println("Welcome, please insert your name (can be changed later)");
-        String name = input.nextLine();
+    public static void startGame() {
+        GameWindow.appendText("Welcome, please insert your name (can be changed later)\n");
+        String name = GameWindow.getText();;
         mainChar.customize(name);
     }
     public static void exitGame() {

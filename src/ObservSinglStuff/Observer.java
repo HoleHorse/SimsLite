@@ -1,7 +1,9 @@
 package ObservSinglStuff;
 
+import java.util.ArrayList;
+
 public interface Observer {
     public void getNotification(String msg);
-    public void readNewNotifications();
-    public void readOldNotifications();
+    public ArrayList<String> readNewNotifications();
+    public ArrayList<String> readOldNotifications();
 }

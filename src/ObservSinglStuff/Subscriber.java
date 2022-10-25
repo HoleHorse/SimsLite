@@ -17,8 +17,9 @@ public class Subscriber implements Observer {
 		this.savings = 10000;
 	}
 	
-	public void work() {
-		this.setSavings(getSavings()+this.workBehaviour.work());
+	public String work() {
+		this.setSavings(getSavings()+this.workBehaviour.getPaid());
+		return this.workBehaviour.work();
 	}
 
 	@Override
@@ -27,20 +28,15 @@ public class Subscriber implements Observer {
 	}
 	
 	@Override
-	public void readNewNotifications() {
-		for (String i : unread) {
-			System.out.println(this.getUsername() + ",");
-			System.out.println(i);
-		}
+	public ArrayList<String> readNewNotifications() {
 		this.read.addAll(unread);
 		this.unread.removeAll(unread);
+		return read;
 	}
 
 	@Override
-	public void readOldNotifications() {
-		for (String i : read) {
-			System.out.println(this.getUsername() + ", " + i);
-		}
+	public ArrayList<String> readOldNotifications() {
+		return read;
 	}
 	
 	public void subscribe(InstaAcc acc) {

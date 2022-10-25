@@ -19,8 +19,9 @@ public class InstaAcc implements InstaSevice {
 		this.savings = 100000;
 	}
 	
-	public void work() {
-		this.setSavings(getSavings()+this.workBehaviour.work());
+	public String work() {
+		this.setSavings(getSavings()+this.workBehaviour.getPaid());
+		return this.workBehaviour.work();
 	}
 
 	@Override
@@ -36,12 +37,12 @@ public class InstaAcc implements InstaSevice {
 	@Override
 	public void notify(String m) {
 		for(Observer o: subscribers) {
-            o.getNotification("new post from " + this.alias + ":" + m + "\n");
+            o.getNotification("New post from " + this.alias + ":" + m + "\n");
         }
 	}
 	
-	public void seeAccDetails() {
-		System.out.println("You have " + subscribers.size() + " subs.");
+	public String seeAccDetails() {
+		return "You have " + subscribers.size() + " subs.";
 	}
 	
 	public String getAlias() {

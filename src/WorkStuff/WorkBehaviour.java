@@ -1,5 +1,6 @@
 package WorkStuff;
 
 public interface WorkBehaviour {
-	public int work();
+	public String work();
+	public int getPaid();
 }
