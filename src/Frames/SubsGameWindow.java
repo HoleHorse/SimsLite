@@ -1,6 +1,25 @@
 package Frames;
 
+import ObservSinglStuff.InstaAcc;
+import ObservSinglStuff.Subscriber;
+import WorkStuff.WorkAsBuilder;
+import WorkStuff.WorkAsLawyer;
+import WorkStuff.WorkAsNot;
+import org.w3c.dom.Text;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class SubsGameWindow extends javax.swing.JFrame {
+    static Subscriber champ = new Subscriber("Champ123", new WorkAsNot());
+    static Subscriber vik = new Subscriber("Viktor228", new WorkAsLawyer());
+    static Subscriber smash = new Subscriber("Smasher520", new WorkAsBuilder());
+    static InstaAcc mainChar = InstaAcc.getInstance();
+    static String currCharType = "";
+    static Subscriber currCharSub = new Subscriber("Default", new WorkAsNot());
+    static Scanner input = new Scanner(System.in);
+    static ArrayList<Subscriber> sublist = new ArrayList<>();
 
     public SubsGameWindow() {
         initComponents();
@@ -124,4 +143,5 @@ public class SubsGameWindow extends javax.swing.JFrame {
     private javax.swing.JButton Work;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration
+
 }

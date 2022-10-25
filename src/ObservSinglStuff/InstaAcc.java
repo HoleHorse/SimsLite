@@ -59,4 +59,8 @@ public class InstaAcc implements InstaSevice {
 	public static InstaAcc getInstance() {
 		return instance;
 	}
+
+	public void customize(String alias) {
+		instance.alias = alias;
+	}
 }
