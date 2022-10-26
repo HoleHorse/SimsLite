@@ -4,7 +4,7 @@ import GUI.GameWindow;
 import DrinkFactory.DrinkFact;
 import DrinkFactory.DrinkFactory;
 import FoodDecorators.*;
-import Characters.InstaAcc;
+import Characters.Acc;
 import Characters.Subscriber;
 import WorkBehaviours.*;
 
@@ -15,7 +15,7 @@ public class GamePlay {
     static Subscriber champ = new Subscriber("Champ123", new WorkAsNot());
     static Subscriber vik = new Subscriber("Viktor228", new WorkAsLawyer());
     static Subscriber smash = new Subscriber("Smasher520", new WorkAsBuilder());
-    static InstaAcc mainChar = InstaAcc.getInstance();
+    static Acc mainChar = Acc.getInstance();
     static String currCharType = "";
     static Subscriber currCharSub = new Subscriber("Default", new WorkAsNot());
 

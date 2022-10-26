@@ -39,11 +39,11 @@ public class Subscriber implements Observer {
 		return read;
 	}
 	
-	public void subscribe(InstaAcc acc) {
+	public void subscribe(Acc acc) {
 		acc.subscribe(this);
 	}
 	
-	public void unsubscribe(InstaAcc acc) {
+	public void unsubscribe(Acc acc) {
 		acc.unsubscribe(this);
 	}
 	

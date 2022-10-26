@@ -6,14 +6,14 @@ import WorkBehaviours.WorkBehaviour;
 import java.util.HashSet;
 import java.util.Set;
 
-public class InstaAcc implements InstaSevice {
+public class Acc implements InstaSevice {
 	private Set<Observer> subscribers = new HashSet<>();
 	private String alias;
 	private WorkBehaviour workBehaviour;
-	private static InstaAcc instance = new InstaAcc("Captain_SHkiper", new WorkAsNot());
+	private static Acc instance = new Acc("Default", new WorkAsNot());
 	private int savings;
 	
-	private InstaAcc(String alias, WorkBehaviour workBehaviour) {
+	private Acc(String alias, WorkBehaviour workBehaviour) {
 		this.alias = alias;
 		this.workBehaviour = workBehaviour;
 		this.savings = 100000;
@@ -57,7 +57,7 @@ public class InstaAcc implements InstaSevice {
 		this.savings = savings;
 	}
 
-	public static InstaAcc getInstance() {
+	public static Acc getInstance() {
 		return instance;
 	}
 
