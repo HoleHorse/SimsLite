@@ -145,7 +145,7 @@ public class GamePlay {
 
     public static Food chooseFood() {
         GameWindow.appendText("Choose toppings for your dish: 1 = Mashed potato, 2 = Pasta, 3 = Sausage, 4 = Pattie, 5 = Rice, Any other key = End\n");
-        String topping = GameWindow.getText();;
+        String topping = GameWindow.getText();
         return switch (topping) {
             case "1" -> new MashedPotato(chooseFood());
             case "2" -> new Pasta(chooseFood());
@@ -205,7 +205,7 @@ public class GamePlay {
                 }
             }
             if(!isChar) {
-                GameWindow.appendText("No such charachter, try again\n");
+                GameWindow.appendText("No such character, try again\n");
             }
         }
         return charName;
@@ -226,7 +226,7 @@ public class GamePlay {
             case "Viktor228" -> vik = currChar;
             case "Smasher520" -> smash = currChar;
             default -> {
-                System.err.println("Unforseen error occured, the game ends now");
+                System.err.println("Unforeseen error occurred, the game ends now");
                 exitGame();
             }
         }
@@ -238,7 +238,7 @@ public class GamePlay {
             case "Viktor228" -> vik.unsubscribe(mainChar);
             case "Smasher520" -> smash.unsubscribe(mainChar);
             default -> {
-                System.err.println("Unforseen error occured, the game ends now");
+                System.err.println("Unforeseen error occurred, the game ends now");
                 exitGame();
             }
         }
@@ -250,15 +250,15 @@ public class GamePlay {
             case "Viktor228" -> vik.subscribe(mainChar);
             case "Smasher520" -> smash.subscribe(mainChar);
             default -> {
-                System.err.println("Unforseen error occured, the game ends now");
+                System.err.println("Unforeseen error occurred, the game ends now");
                 exitGame();
             }
         }
     }
 
     public static void startGame() {
-        GameWindow.appendText("Welcome, please insert your name (can be changed later)\n");
-        String name = GameWindow.getText();;
+        GameWindow.appendText("Welcome, please insert your name (can not be changed later)\n");
+        String name = GameWindow.getText();
         mainChar.customize(name);
     }
     public static void exitGame() {

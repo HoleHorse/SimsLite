@@ -4,9 +4,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class GameWindow extends javax.swing.JFrame {
-    private static ArrayList<String> lines = new ArrayList<>();
-    private static javax.swing.JTextArea TextArea = new javax.swing.JTextArea();
-    private static javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+    static ArrayList<String> lines = new ArrayList<>();
+    private static final javax.swing.JTextArea TextArea = new javax.swing.JTextArea();
+    private static final javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
 
     public GameWindow() {
         initComponents();
@@ -43,11 +43,7 @@ public class GameWindow extends javax.swing.JFrame {
     public static void createWindow() {
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GameWindow().setVisible(true);
-            }
-        });
+        java.awt.EventQueue.invokeLater(() -> new GameWindow().setVisible(true));
     }
 
     public static void appendText(String text) {
