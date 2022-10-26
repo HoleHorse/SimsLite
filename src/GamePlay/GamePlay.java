@@ -1,12 +1,12 @@
 package GamePlay;
 
-import Frames.GameWindow;
-import FactoryStuff.DrinkFact;
-import FactoryStuff.DrinkFactory;
-import FoodStuff.*;
-import ObservSinglStuff.InstaAcc;
-import ObservSinglStuff.Subscriber;
-import WorkStuff.*;
+import GUI.GameWindow;
+import DrinkFactory.DrinkFact;
+import DrinkFactory.DrinkFactory;
+import FoodDecorators.*;
+import Characters.InstaAcc;
+import Characters.Subscriber;
+import WorkBehaviours.*;
 
 import java.util.ArrayList;
 import java.util.Objects;
