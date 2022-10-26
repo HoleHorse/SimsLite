@@ -6,6 +6,7 @@ import DrinkFactory.DrinkFactory;
 import FoodDecorators.*;
 import Characters.Acc;
 import Characters.Subscriber;
+import RadioState.*;
 import WorkBehaviours.*;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class GamePlay {
                 boolean wantSwitch = false;
                 while(!wantSwitch) {
                     GameWindow.appendText("Enter number of the action to perform:\n");
-                    GameWindow.appendText("1 = Read new, 2 = Read old, 3 = Switch, 4 = Sub., 5 = Unsub., 6 = Exit, 7 = Work, 8 = Eat, 9 = See savings, 10 = get drink\n");
+                    GameWindow.appendText("1 = Read new, 2 = Read old, 3 = Switch, 4 = Sub., 5 = Unsub., 6 = Exit, 7 = Work, 8 = Eat, 9 = See savings, 10 = get drink, 11 = turn radio on/off\n");
                     String action = GameWindow.getText();
                     switch (action) {
                         case "1" -> {
@@ -94,6 +95,15 @@ public class GamePlay {
                             DrinkFact drink = chooseDrink();
                             GameWindow.appendText(drink.getDrink() + "\n");
                         }
+                        case "11" -> {
+                            if(currCharSub.radio.getState().toString().equals("Off")) {
+                                currCharSub.radio.setState(new OnState());
+                                GameWindow.appendText(currCharSub.radio.getState().switchRadio() + "\n");
+                            } else {
+                                currCharSub.radio.setState(new OffState());
+                                GameWindow.appendText(currCharSub.radio.getState().switchRadio() + "\n");
+                            }
+                        }
                         default -> GameWindow.appendText("I can't " + action + "\n");
                     }
                 }
@@ -101,7 +111,7 @@ public class GamePlay {
                 boolean wantSwitch = false;
                 while(!wantSwitch) {
                     GameWindow.appendText("Enter number of the action to perform:\n");
-                    GameWindow.appendText("1 = Post, 2 = Details, 3 = Switch, 4 = Eat, 5 = Unsub., 6 = Exit, 7 = Work, 8 = See savings, 9 = get drink\n");
+                    GameWindow.appendText("1 = Post, 2 = Details, 3 = Switch, 4 = Eat, 5 = Unsub., 6 = Exit, 7 = Work, 8 = See savings, 9 = get drink, 10 = turn radio on/off\n");
                     String action = GameWindow.getText();
                     switch (action) {
                         case "1" -> {
@@ -135,6 +145,15 @@ public class GamePlay {
                         case "9" -> {
                             DrinkFact drink = chooseDrink();
                             GameWindow.appendText(drink.getDrink() + "\n");
+                        }
+                        case "10" -> {
+                            if(mainChar.radio.getState().toString().equals("Off")) {
+                                mainChar.radio.setState(new OnState());
+                                GameWindow.appendText(mainChar.radio.getState().switchRadio() + "\n");
+                            } else {
+                                mainChar.radio.setState(new OffState());
+                                GameWindow.appendText(mainChar.radio.getState().switchRadio() + "\n");
+                            }
                         }
                         default -> GameWindow.appendText("I can't " + action + "\n");
                     }

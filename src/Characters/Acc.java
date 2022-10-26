@@ -1,5 +1,7 @@
 package Characters;
 
+import RadioState.Radio;
+import RadioState.OffState;
 import WorkBehaviours.WorkAsNot;
 import WorkBehaviours.WorkBehaviour;
 
@@ -12,6 +14,7 @@ public class Acc implements InstaSevice {
 	private WorkBehaviour workBehaviour;
 	private static Acc instance = new Acc("Default", new WorkAsNot());
 	private int savings;
+	public Radio radio = new Radio(new OffState());
 	
 	private Acc(String alias, WorkBehaviour workBehaviour) {
 		this.alias = alias;

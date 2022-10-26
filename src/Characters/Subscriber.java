@@ -1,5 +1,7 @@
 package Characters;
 
+import RadioState.OffState;
+import RadioState.Radio;
 import WorkBehaviours.WorkBehaviour;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ public class Subscriber implements Observer {
 	private ArrayList<String> read = new ArrayList<>();
 	private WorkBehaviour workBehaviour;
 	private int savings;
+	public Radio radio = new Radio(new OffState());
 	
 	public Subscriber(String username, WorkBehaviour workBehaviour) {
 		this.username = username;
