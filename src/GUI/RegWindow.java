@@ -2,12 +2,14 @@ package GUI;
 
 import Mongo.Mongo;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class RegWindow extends javax.swing.JFrame {
     public RegWindow() {
         initComponents();
     }
+
     private void initComponents() {
 
         javax.swing.JTextField passwordT = new javax.swing.JTextField();
@@ -76,8 +78,13 @@ public class RegWindow extends javax.swing.JFrame {
     }// </editor-fold>
 
     private void Register(String username, String password) {
-        Mongo.register(username, password);
-        dispose();
+        if(!Mongo.isValid(username, password)) {
+            JOptionPane.showMessageDialog(this,
+                    Mongo.specify(username, password));
+        } else {
+            Mongo.register(username, password);
+            dispose();
+        }
     }
 
     public static void createWindow() {

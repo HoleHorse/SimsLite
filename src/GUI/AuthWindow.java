@@ -9,9 +9,11 @@ import java.awt.*;
 
 public class AuthWindow extends javax.swing.JFrame {
     private static final AuthWindow instance = new AuthWindow();
+
     public AuthWindow() {
         initComponents();
     }
+
     private void initComponents() {
 
         JLabel signIn = new JLabel();
@@ -82,10 +84,10 @@ public class AuthWindow extends javax.swing.JFrame {
 
     private void signIN(String username, String password) {
         Document user = Mongo.login(username, password);
-        if(user != null) {
+        if (user != null) {
             GamePlay.setUid(user.getObjectId("_id"));
             instance.setLocation(2000, 2000);
-            if(!user.getBoolean("isadmin")) {
+            if (!user.getBoolean("isadmin")) {
                 GameWindow.createWindow();
             } else {
                 AdminWindow.createWindow();
@@ -94,9 +96,11 @@ public class AuthWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No matching user found");
         }
     }
+
     private void openReg(java.awt.event.ActionEvent evt) {
         RegWindow.createWindow();
     }
+
     public static void createWindow() {
         java.awt.EventQueue.invokeLater(() -> instance.setVisible(true));
     }

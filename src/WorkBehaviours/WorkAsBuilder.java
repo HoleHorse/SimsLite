@@ -12,4 +12,8 @@ public class WorkAsBuilder implements WorkBehaviour {
 		return 10000;
 	}
 
+	@Override
+	public String toString() {
+		return "Builder";
+	}
 }

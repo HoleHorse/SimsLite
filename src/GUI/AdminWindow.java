@@ -10,9 +10,11 @@ public class AdminWindow extends javax.swing.JFrame {
 
     private static final javax.swing.JTextArea TextArea = new javax.swing.JTextArea();
     private static final javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
+
     public AdminWindow() {
         initComponents();
     }
+
     private void initComponents() {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -34,6 +36,7 @@ public class AdminWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>
+
     public static void createWindow() {
         java.awt.EventQueue.invokeLater(() -> new AdminWindow().setVisible(true));
         displayLogs();
@@ -41,9 +44,9 @@ public class AdminWindow extends javax.swing.JFrame {
 
     private static void displayLogs() {
         FindIterable<Document> logs = Mongo.getLog();
-        for (Document d:logs) {
+        for (Document d : logs) {
             TextArea.append("User: " + d.getObjectId("User_id").toString() + " Game: " + d.getObjectId("Game_id").toString() + "\n");
-            for (String log:d.getList("Log", String.class)) {
+            for (String log : d.getList("Log", String.class)) {
                 TextArea.append(log);
             }
         }

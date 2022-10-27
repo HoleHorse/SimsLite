@@ -51,11 +51,11 @@ public class GameWindow extends javax.swing.JFrame {
 
     public static void appendText(String text) {
         int len = lines.size();
-        if(len % 33 == 0 && len > 32) {
+        if (len % 33 == 0 && len > 32) {
             TextArea.setText("");
-            TextArea.append(lines.get(len-3));
-            TextArea.append(lines.get(len-2));
-            TextArea.append(lines.get(len-1));
+            TextArea.append(lines.get(len - 3));
+            TextArea.append(lines.get(len - 2));
+            TextArea.append(lines.get(len - 1));
         }
         TextArea.append(text);
         lines.add(text);
@@ -63,8 +63,8 @@ public class GameWindow extends javax.swing.JFrame {
 
     public static String getText() {
         javax.swing.JFrame f = new JFrame();
-        String ans = JOptionPane.showInputDialog(f,"Enter your choice (cancel or exit to end the game)");
-        if(ans == null) {
+        String ans = JOptionPane.showInputDialog(f, "Enter your choice (cancel or exit to end the game)");
+        if (ans == null) {
             GamePlay.saveGame();
             Mongo.saveLog();
             System.exit(1);

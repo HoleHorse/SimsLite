@@ -30,7 +30,7 @@ public class GamePlay {
         champ.subscribe(mainChar);
         vik.subscribe(mainChar);
         smash.subscribe(mainChar);
-        while(true) {
+        while (true) {
             String currCharName = insertCharName();
             switch (currCharName) {
                 case "Champ123" -> {
@@ -46,13 +46,14 @@ public class GamePlay {
                     currCharType = "sub";
                 }
             }
-            if(currCharName.equals(mainChar.getAlias()))
+            if (currCharName.equals(mainChar.getAlias()))
                 currCharType = "acc";
-            if(Objects.equals(currCharType, "sub")) {
+            if (Objects.equals(currCharType, "sub")) {
                 boolean wantSwitch = false;
-                while(!wantSwitch) {
+                while (!wantSwitch) {
                     GameWindow.appendText("Enter number of the action to perform:\n");
-                    GameWindow.appendText("1 = Read new, 2 = Read old, 3 = Switch, 4 = Sub., 5 = Unsub., 6 = Exit, 7 = Work, 8 = Eat, 9 = See savings, 10 = get drink, 11 = turn radio on/off\n");
+                    GameWindow.appendText("1 = Read new, 2 = Read old, 3 = Switch, 4 = Sub., 5 = Unsub., 6 = Exit, 7 = Work\n");
+                    GameWindow.appendText("8 = Eat, 9 = See savings, 10 = get drink, 11 = turn radio on/off, 12 = change job\n");
                     String action = GameWindow.getText();
                     switch (action) {
                         case "1" -> {
@@ -100,7 +101,7 @@ public class GamePlay {
                             GameWindow.appendText(drink.getDrink() + "\n");
                         }
                         case "11" -> {
-                            if(currCharSub.radio.getState().toString().equals("Off")) {
+                            if (currCharSub.radio.getState().toString().equals("Off")) {
                                 currCharSub.radio.setState(new OnState());
                                 GameWindow.appendText(currCharSub.radio.getState().switchRadio() + "\n");
                             } else {
@@ -108,14 +109,20 @@ public class GamePlay {
                                 GameWindow.appendText(currCharSub.radio.getState().switchRadio() + "\n");
                             }
                         }
+                        case "12" -> {
+                            WorkBehaviour newJob = changeJobs();
+                            currCharSub.setWorkBehaviour(newJob);
+                            makeSame(currCharSub);
+                        }
                         default -> GameWindow.appendText("I can't " + action + "\n");
                     }
                 }
-            } else if(Objects.equals(currCharType, "acc")) {
+            } else if (Objects.equals(currCharType, "acc")) {
                 boolean wantSwitch = false;
-                while(!wantSwitch) {
+                while (!wantSwitch) {
                     GameWindow.appendText("Enter number of the action to perform:\n");
-                    GameWindow.appendText("1 = Post, 2 = Details, 3 = Switch, 4 = Eat, 5 = Unsub., 6 = Exit, 7 = Work, 8 = See savings, 9 = get drink, 10 = turn radio on/off\n");
+                    GameWindow.appendText("1 = Post, 2 = Details, 3 = Switch, 4 = Eat, 5 = Unsub., 6 = Exit, 7 = Work\n");
+                    GameWindow.appendText("8 = See savings, 9 = get drink, 10 = turn radio on/off, 11 = change job\n");
                     String action = GameWindow.getText();
                     switch (action) {
                         case "1" -> {
@@ -152,13 +159,17 @@ public class GamePlay {
                             GameWindow.appendText(drink.getDrink() + "\n");
                         }
                         case "10" -> {
-                            if(mainChar.radio.getState().toString().equals("Off")) {
+                            if (mainChar.radio.getState().toString().equals("Off")) {
                                 mainChar.radio.setState(new OnState());
                                 GameWindow.appendText(mainChar.radio.getState().switchRadio() + "\n");
                             } else {
                                 mainChar.radio.setState(new OffState());
                                 GameWindow.appendText(mainChar.radio.getState().switchRadio() + "\n");
                             }
+                        }
+                        case "11" -> {
+                            WorkBehaviour newJob = changeJobs();
+                            mainChar.setWorkBehaviour(newJob);
                         }
                         default -> GameWindow.appendText("I can't " + action + "\n");
                     }
@@ -167,7 +178,7 @@ public class GamePlay {
         }
     }
 
-    public static Food chooseFood() {
+    private static Food chooseFood() {
         GameWindow.appendText("Choose toppings for your dish: 1 = Mashed potato, 2 = Pasta, 3 = Sausage, 4 = Pattie, 5 = Rice, Any other key = End\n");
         String topping = GameWindow.getText();
         return switch (topping) {
@@ -180,9 +191,9 @@ public class GamePlay {
         };
     }
 
-    public static DrinkFact chooseDrink() {
+    private static DrinkFact chooseDrink() {
         DrinkFactory drinkFactory = new DrinkFactory();
-        while(true) {
+        while (true) {
             GameWindow.appendText("Choose your poison: 1 = Coffee, 2 = Tea, 3 = Booze\n");
             String drink = GameWindow.getText();
             switch (drink) {
@@ -200,14 +211,14 @@ public class GamePlay {
         }
     }
 
-    public static String insertCharName() {
+    private static String insertCharName() {
         boolean isChar = false;
         String charName = null;
-        while(!isChar) {
+        while (!isChar) {
             GameWindow.appendText("Choose character (Enter '1 = Champ123', '2 = Viktor228', '3 = Smasher520' or '4 = " + mainChar.getAlias() + "')" + "\n");
             GameWindow.appendText("Enter 'exit' to end the game\n");
             charName = GameWindow.getText();
-            if(charName.equals("exit")) {
+            if (charName.equals("exit")) {
                 exitGame();
             }
             switch (charName) {
@@ -228,14 +239,14 @@ public class GamePlay {
                     isChar = true;
                 }
             }
-            if(!isChar) {
+            if (!isChar) {
                 GameWindow.appendText("No such character, try again\n");
             }
         }
         return charName;
     }
 
-    public static Subscriber getSub(String name) {
+    private static Subscriber getSub(String name) {
         return switch (name) {
             case "Champ123" -> champ;
             case "Viktor228" -> vik;
@@ -244,7 +255,7 @@ public class GamePlay {
         };
     }
 
-    public static void makeSame(Subscriber currChar) {
+    private static void makeSame(Subscriber currChar) {
         switch (currChar.getUsername()) {
             case "Champ123" -> champ = currChar;
             case "Viktor228" -> vik = currChar;
@@ -256,7 +267,7 @@ public class GamePlay {
         }
     }
 
-    public static void unsub(String currChar) {
+    private static void unsub(String currChar) {
         switch (currChar) {
             case "Champ123" -> champ.unsubscribe(mainChar);
             case "Viktor228" -> vik.unsubscribe(mainChar);
@@ -268,7 +279,7 @@ public class GamePlay {
         }
     }
 
-    public static void sub(String currChar) {
+    private static void sub(String currChar) {
         switch (currChar) {
             case "Champ123" -> champ.subscribe(mainChar);
             case "Viktor228" -> vik.subscribe(mainChar);
@@ -280,35 +291,37 @@ public class GamePlay {
         }
     }
 
-    public static void startGame() {
+    private static void startGame() {
         loadGame();
     }
 
-    public static void startNewGame() {
+    private static void startNewGame() {
         GameWindow.appendText("Welcome to new game, please insert your main character's name (can not be changed later)\n");
         String name = GameWindow.getText();
         mainChar.customize(name);
+        WorkBehaviour job = changeJobs();
+        mainChar.setWorkBehaviour(job);
     }
 
     public static void setUid(ObjectId id) {
         uid = id;
     }
 
-    public static void getGames() {
+    private static void getGames() {
         List<ObjectId> games = Mongo.getGames(uid);
         assert games != null;
-        if(games.size() > 0) {
+        if (games.size() > 0) {
             GameWindow.appendText("Choose your game session:\n");
-            for (ObjectId id:games) {
+            for (ObjectId id : games) {
                 String name = Mongo.getGameName(id);
                 GameWindow.appendText(games.indexOf(id) + " = " + name + " ");
-                if(games.indexOf(id) > 0 && games.indexOf(id) % 7 == 0) {
+                if (games.indexOf(id) > 0 && games.indexOf(id) % 7 == 0) {
                     GameWindow.appendText(games.indexOf(id) + " = " + name + "\n");
                 }
             }
             GameWindow.appendText("\n (Or create a new one type -1)\n");
             String gameToLoad = GameWindow.getText();
-            if(gameToLoad.equals("-1")) {
+            if (gameToLoad.equals("-1")) {
                 GameWindow.appendText("Type name for the new game session\n");
                 String name = GameWindow.getText();
                 ObjectId id = new ObjectId();
@@ -317,9 +330,9 @@ public class GamePlay {
                 startNewGame();
                 return;
             }
-            for (ObjectId id:games) {
-                if(Integer.toString(games.indexOf(id)).equals(gameToLoad)) {
-                   gid = id;
+            for (ObjectId id : games) {
+                if (Integer.toString(games.indexOf(id)).equals(gameToLoad)) {
+                    gid = id;
                 }
             }
             startGame();
@@ -333,14 +346,41 @@ public class GamePlay {
         }
     }
 
+    private static WorkBehaviour changeJobs() {
+        while (true) {
+            GameWindow.appendText("Choose the job you'd love to do 1 = No job, 2 = Builder, 3 = Lawyer");
+            String job = GameWindow.getText();
+            switch (job) {
+                case "1" -> {
+                    return new WorkAsNot();
+                }
+                case "2" -> {
+                    return new WorkAsBuilder();
+                }
+                case "3" ->{
+                    return new WorkAsLawyer();
+                }
+                default -> GameWindow.appendText("No representatives of this job are in demand\n");
+            };
+        }
+    }
+
     private static void loadGame() {
         Mongo.getSubs(gid);
         Mongo.getUnreadRead(gid);
+        Mongo.getSavings(gid);
+        Mongo.getMcName(gid);
+        Mongo.getRadio(gid);
+        Mongo.getWork(gid);
     }
 
     public static void saveGame() {
         Mongo.saveSubs(gid);
         Mongo.saveUnreadRaed(gid);
+        Mongo.saveSavings(gid);
+        Mongo.saveMcName(gid);
+        Mongo.saveRadio(gid);
+        Mongo.saveWork(gid);
     }
 
     public static void exitGame() {

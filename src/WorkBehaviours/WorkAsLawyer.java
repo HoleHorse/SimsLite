@@ -12,4 +12,8 @@ public class WorkAsLawyer implements WorkBehaviour {
 		return 20000;
 	}
 
+	@Override
+	public String toString() {
+		return "Lawyer";
+	}
 }

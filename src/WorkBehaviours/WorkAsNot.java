@@ -12,4 +12,8 @@ public class WorkAsNot implements WorkBehaviour {
 		return 0;
 	}
 
+	@Override
+	public String toString() {
+		return "None";
+	}
 }
