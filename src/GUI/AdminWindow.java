@@ -33,4 +33,5 @@ public class AdminWindow extends javax.swing.JFrame {
     public static void createWindow() {
         java.awt.EventQueue.invokeLater(() -> new AdminWindow().setVisible(true));
     }
+
 }

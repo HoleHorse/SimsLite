@@ -21,12 +21,10 @@ public class GamePlay {
     static Subscriber currCharSub = new Subscriber("Default", new WorkAsNot());
 
     public static void play() {
-        GameWindow.createWindow();
         startGame();
         champ.subscribe(mainChar);
         vik.subscribe(mainChar);
         smash.subscribe(mainChar);
-        GameWindow.createWindow();
         while(true) {
             String currCharName = insertCharName();
             switch (currCharName) {
@@ -280,8 +278,8 @@ public class GamePlay {
         String name = GameWindow.getText();
         mainChar.customize(name);
     }
+
     public static void exitGame() {
         System.exit(0);
     }
 }
-

@@ -1,5 +1,7 @@
 package GUI;
 
+import GamePlay.GamePlay;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -41,9 +43,9 @@ public class GameWindow extends javax.swing.JFrame {
     }// </editor-fold>
 
     public static void createWindow() {
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new GameWindow().setVisible(true));
+        GameWindow g = new GameWindow();
+        g.setVisible(true);
+        GamePlay.play();
     }
 
     public static void appendText(String text) {
@@ -59,7 +61,7 @@ public class GameWindow extends javax.swing.JFrame {
     }
 
     public static String getText() {
-        javax.swing.JFrame f=new JFrame();
+        javax.swing.JFrame f = new JFrame();
         String ans = JOptionPane.showInputDialog(f,"Enter your choice (cancel or exit to end the game)");
         if(ans == null) {
             System.exit(1);

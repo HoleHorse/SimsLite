@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AuthWindow extends javax.swing.JFrame {
+    private static final AuthWindow instance = new AuthWindow();
     public AuthWindow() {
         initComponents();
     }
@@ -22,7 +23,7 @@ public class AuthWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        signIn.setFont(new Font("sansserif", Font.PLAIN, 36)); // NOI18N
+        signIn.setFont(new Font("sanserif", Font.PLAIN, 36));
         signIn.setText("Sign in");
 
         usernameL.setText("Username");
@@ -81,20 +82,21 @@ public class AuthWindow extends javax.swing.JFrame {
     private void signIN(String username, String password) {
         Document user = Mongo.login(username, password);
         if(user != null) {
+            instance.setLocation(2000, 2000);
             if(!user.getBoolean("isadmin")) {
-                // TODO
+                GameWindow.createWindow();
             } else {
                 AdminWindow.createWindow();
             }
         } else {
             JOptionPane.showMessageDialog(this, "No matching user found");
         }
-        dispose();
     }
     private void openReg(java.awt.event.ActionEvent evt) {
         RegWindow.createWindow();
     }
     public static void createWindow() {
-        java.awt.EventQueue.invokeLater(() -> new AuthWindow().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> instance.setVisible(true));
     }
+
 }
