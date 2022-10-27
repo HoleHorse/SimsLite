@@ -1,5 +1,9 @@
 package GUI;
 
+import Mongo.Mongo;
+import com.mongodb.client.FindIterable;
+import org.bson.Document;
+
 import javax.swing.*;
 
 public class AdminWindow extends javax.swing.JFrame {
@@ -32,6 +36,16 @@ public class AdminWindow extends javax.swing.JFrame {
     }// </editor-fold>
     public static void createWindow() {
         java.awt.EventQueue.invokeLater(() -> new AdminWindow().setVisible(true));
+        displayLogs();
     }
 
+    private static void displayLogs() {
+        FindIterable<Document> logs = Mongo.getLog();
+        for (Document d:logs) {
+            TextArea.append("User: " + d.getObjectId("User_id").toString() + " Game: " + d.getObjectId("Game_id").toString() + "\n");
+            for (String log:d.getList("Log", String.class)) {
+                TextArea.append(log);
+            }
+        }
+    }
 }

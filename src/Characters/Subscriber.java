@@ -12,6 +12,8 @@ public class Subscriber implements Observer {
 	private ArrayList<String> read = new ArrayList<>();
 	private WorkBehaviour workBehaviour;
 	private int savings;
+
+	private boolean isSub;
 	public Radio radio = new Radio(new OffState());
 	
 	public Subscriber(String username, WorkBehaviour workBehaviour) {
@@ -44,10 +46,12 @@ public class Subscriber implements Observer {
 	
 	public void subscribe(Acc acc) {
 		acc.subscribe(this);
+		this.isSub = true;
 	}
 	
 	public void unsubscribe(Acc acc) {
 		acc.unsubscribe(this);
+		this.isSub = false;
 	}
 	
 	public String getUsername() {
@@ -66,4 +70,23 @@ public class Subscriber implements Observer {
 		this.savings = savings;
 	}
 
+	public boolean isSub() {
+		return isSub;
+	}
+
+	public ArrayList<String> getRead() {
+		return read;
+	}
+
+	public ArrayList<String> getUnread() {
+		return unread;
+	}
+
+	public void setRead(ArrayList<String> read) {
+		this.read = read;
+	}
+
+	public void setUnread(ArrayList<String> unread) {
+		this.unread = unread;
+	}
 }

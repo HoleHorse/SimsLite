@@ -6,22 +6,27 @@ import DrinkFactory.DrinkFactory;
 import FoodDecorators.*;
 import Characters.Acc;
 import Characters.Subscriber;
+import Mongo.Mongo;
 import RadioState.*;
 import WorkBehaviours.*;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class GamePlay {
-    static Subscriber champ = new Subscriber("Champ123", new WorkAsNot());
-    static Subscriber vik = new Subscriber("Viktor228", new WorkAsLawyer());
-    static Subscriber smash = new Subscriber("Smasher520", new WorkAsBuilder());
-    static Acc mainChar = Acc.getInstance();
+    private static ObjectId uid;
+    private static ObjectId gid;
+    public static Subscriber champ = new Subscriber("Champ123", new WorkAsNot());
+    public static Subscriber vik = new Subscriber("Viktor228", new WorkAsLawyer());
+    public static Subscriber smash = new Subscriber("Smasher520", new WorkAsBuilder());
+    public static Acc mainChar = Acc.getInstance();
     static String currCharType = "";
     static Subscriber currCharSub = new Subscriber("Default", new WorkAsNot());
 
     public static void play() {
-        startGame();
+        getGames();
         champ.subscribe(mainChar);
         vik.subscribe(mainChar);
         smash.subscribe(mainChar);
@@ -67,6 +72,7 @@ public class GamePlay {
                             makeSame(currCharSub);
                         }
                         case "6" -> {
+                            saveGame();
                             return;
                         }
                         case "3" -> wantSwitch = true;
@@ -123,6 +129,7 @@ public class GamePlay {
                             mainChar.unsubscribe(getSub(name));
                         }
                         case "6" -> {
+                            saveGame();
                             return;
                         }
                         case "3" -> wantSwitch = true;
@@ -274,12 +281,78 @@ public class GamePlay {
     }
 
     public static void startGame() {
-        GameWindow.appendText("Welcome, please insert your name (can not be changed later)\n");
+        loadGame();
+    }
+
+    public static void startNewGame() {
+        GameWindow.appendText("Welcome to new game, please insert your main character's name (can not be changed later)\n");
         String name = GameWindow.getText();
         mainChar.customize(name);
     }
 
+    public static void setUid(ObjectId id) {
+        uid = id;
+    }
+
+    public static void getGames() {
+        List<ObjectId> games = Mongo.getGames(uid);
+        assert games != null;
+        if(games.size() > 0) {
+            GameWindow.appendText("Choose your game session:\n");
+            for (ObjectId id:games) {
+                String name = Mongo.getGameName(id);
+                GameWindow.appendText(games.indexOf(id) + " = " + name + " ");
+                if(games.indexOf(id) > 0 && games.indexOf(id) % 7 == 0) {
+                    GameWindow.appendText(games.indexOf(id) + " = " + name + "\n");
+                }
+            }
+            GameWindow.appendText("\n (Or create a new one type -1)\n");
+            String gameToLoad = GameWindow.getText();
+            if(gameToLoad.equals("-1")) {
+                GameWindow.appendText("Type name for the new game session\n");
+                String name = GameWindow.getText();
+                ObjectId id = new ObjectId();
+                Mongo.addNewGame(uid, name, id);
+                gid = id;
+                startNewGame();
+                return;
+            }
+            for (ObjectId id:games) {
+                if(Integer.toString(games.indexOf(id)).equals(gameToLoad)) {
+                   gid = id;
+                }
+            }
+            startGame();
+        } else {
+            GameWindow.appendText("You have no game sessions, insert Name of the new game session to start a new one\n");
+            String name = GameWindow.getText();
+            ObjectId id = new ObjectId();
+            Mongo.addNewGame(uid, name, id);
+            gid = id;
+            startNewGame();
+        }
+    }
+
+    private static void loadGame() {
+        Mongo.getSubs(gid);
+        Mongo.getUnreadRead(gid);
+    }
+
+    public static void saveGame() {
+        Mongo.saveSubs(gid);
+        Mongo.saveUnreadRaed(gid);
+    }
+
     public static void exitGame() {
+        saveGame();
         System.exit(0);
+    }
+
+    public static ObjectId getUid() {
+        return uid;
+    }
+
+    public static ObjectId getGid() {
+        return gid;
     }
 }

@@ -12,7 +12,7 @@ public class Acc implements InstaSevice {
 	private Set<Observer> subscribers = new HashSet<>();
 	private String alias;
 	private WorkBehaviour workBehaviour;
-	private static Acc instance = new Acc("Default", new WorkAsNot());
+	private static Acc instance = new Acc("Stranger", new WorkAsNot());
 	private int savings;
 	public Radio radio = new Radio(new OffState());
 	
@@ -66,5 +66,9 @@ public class Acc implements InstaSevice {
 
 	public void customize(String alias) {
 		instance.alias = alias;
+	}
+
+	public void setSubscribers(Set<Observer> subscribers) {
+		this.subscribers = subscribers;
 	}
 }

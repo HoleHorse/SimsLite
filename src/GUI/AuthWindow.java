@@ -1,5 +1,6 @@
 package GUI;
 
+import GamePlay.GamePlay;
 import Mongo.Mongo;
 import org.bson.Document;
 
@@ -82,6 +83,7 @@ public class AuthWindow extends javax.swing.JFrame {
     private void signIN(String username, String password) {
         Document user = Mongo.login(username, password);
         if(user != null) {
+            GamePlay.setUid(user.getObjectId("_id"));
             instance.setLocation(2000, 2000);
             if(!user.getBoolean("isadmin")) {
                 GameWindow.createWindow();

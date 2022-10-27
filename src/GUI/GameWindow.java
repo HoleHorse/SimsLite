@@ -1,6 +1,7 @@
 package GUI;
 
 import GamePlay.GamePlay;
+import Mongo.Mongo;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -64,8 +65,14 @@ public class GameWindow extends javax.swing.JFrame {
         javax.swing.JFrame f = new JFrame();
         String ans = JOptionPane.showInputDialog(f,"Enter your choice (cancel or exit to end the game)");
         if(ans == null) {
+            GamePlay.saveGame();
+            Mongo.saveLog();
             System.exit(1);
         }
         return ans;
+    }
+
+    public static ArrayList<String> getLines() {
+        return lines;
     }
 }
