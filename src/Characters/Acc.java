@@ -10,6 +10,7 @@ import java.util.Set;
 
 public class Acc implements InstaSevice {
     private Set<Observer> subscribers = new HashSet<>();
+    private Set<String> subs = new HashSet<>();
     private String alias;
     private WorkBehaviour workBehaviour;
     private static Acc instance = new Acc("Stranger", new WorkAsNot());

@@ -133,7 +133,7 @@ public class GamePlay {
                         case "5" -> {
                             GameWindow.appendText("Enter who to unsub.\n");
                             String name = GameWindow.getText();
-                            mainChar.unsubscribe(getSub(name));
+                            getSub(name).unsubscribe(mainChar);
                         }
                         case "6" -> {
                             saveGame();
@@ -348,7 +348,7 @@ public class GamePlay {
 
     private static WorkBehaviour changeJobs() {
         while (true) {
-            GameWindow.appendText("Choose the job you'd love to do 1 = No job, 2 = Builder, 3 = Lawyer");
+            GameWindow.appendText("Choose the job you'd love to do 1 = No job, 2 = Builder, 3 = Lawyer\n");
             String job = GameWindow.getText();
             switch (job) {
                 case "1" -> {

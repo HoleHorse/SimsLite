@@ -12,7 +12,6 @@ public class Subscriber implements Observer {
     private ArrayList<String> read = new ArrayList<>();
     private WorkBehaviour workBehaviour;
     private int savings;
-
     private boolean isSub;
     public Radio radio = new Radio(new OffState());
 
@@ -92,5 +91,9 @@ public class Subscriber implements Observer {
 
     public WorkBehaviour getWorkBehaviour() {
         return workBehaviour;
+    }
+
+    public void setSub(boolean sub) {
+        this.isSub = sub;
     }
 }
