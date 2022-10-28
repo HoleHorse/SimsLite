@@ -57,7 +57,7 @@ public class Mongo {
             return "Password too long (16 symbols max)";
         if(password.length() < 5)
             return "Password too short (5 symbols min)";
-        if(username.length() < 4)
+        if(username.length() < 5)
             return "Username too short (4 symbols min)";
         else return "This username is already occupied";
     }
